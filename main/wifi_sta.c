@@ -139,7 +139,10 @@ esp_err_t ai_wifi_sta_connect(void)
     wifi_config_t cfg = { 0 };
     strlcpy((char *)cfg.sta.ssid, CONFIG_AI_CHAT_WIFI_SSID, sizeof(cfg.sta.ssid));
     strlcpy((char *)cfg.sta.password, CONFIG_AI_CHAT_WIFI_PASSWORD, sizeof(cfg.sta.password));
-    cfg.sta.threshold.authmode = WIFI_AUTH_WPA_PSK;
+    // 密码为空 = 开放网络(FoloToy 模拟器的 "Emulator Host Bridge" 即此类),放行 OPEN;
+    // 有密码则至少要求 WPA-PSK。
+    cfg.sta.threshold.authmode =
+        CONFIG_AI_CHAT_WIFI_PASSWORD[0] == '\0' ? WIFI_AUTH_OPEN : WIFI_AUTH_WPA_PSK;
     err = esp_wifi_set_config(WIFI_IF_STA, &cfg);
     if (err != ESP_OK) goto fail;
 
