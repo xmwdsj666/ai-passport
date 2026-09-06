@@ -11,6 +11,7 @@
 #include "esp_wifi.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
+#include <stdio.h>
 #include <string.h>
 
 static const char *TAG = "wifi_sta";

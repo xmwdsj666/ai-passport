@@ -6,6 +6,15 @@
 
 ## Unreleased
 
+- Added the AI Chat demo page: hold DOWN to record, cloud ASR transcription,
+  an OpenAI-compatible chat completion reply, and streamed WAV TTS playback.
+  Includes an application-level Wi-Fi STA module with Kconfig credentials, a
+  host-tested pure-logic core (`main/chat_core.c`: state machine, history,
+  request assembly, response parsing, WAV probing, multipart building), a
+  worker pipeline with a heap-watermark recording guard and exit handshake, an
+  LVGL chat UI with a CJK font for dynamic text, and `AI Voice Chat` Kconfig
+  options for every endpoint, model, key, and recording limit.
+
 - Added the supplied 80-byte CW2017 profile for the specified 520 mAh cell, including content/update-flag checks, verified writes, the required restart sequence, and bounded SOC-readiness polling.
 
 - Reorganized the documentation by function area with a dual entry point: the root `AGENTS.md` is now a thin router (hard constraints + task routing only) and the detailed AI workflow lives in `docs/development/ai-guide.md`; `agent-guide.md` was folded in. `docs/development/` gained a second level (`engineering/`, `ci/`, `release/`), and the `plays/` application archive and `experiences/` moved into a `docs/reference/` area with a dedicated README. Removed `docs/software-design/` (empty scaffold); folded the three `assets/{fonts,images,music}/README` leaves into the `assets/` README; flattened the six `project-completion` sub-documents into a single file; and unified each directory to a single README, eliminating every `INDEX` file and a duplicated experience index. All cross-references and bibliographic links were updated; no content was dropped.

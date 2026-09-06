@@ -92,7 +92,7 @@ static size_t record_pcm(int16_t *buf, size_t cap_bytes, int *out_reason)
             *out_reason = 2;
             return got;
         }
-        if (esp_get_free_heap_size() < CONFIG_AI_CHAT_HEAP_MIN) {
+        if ((int)esp_get_free_heap_size() < CONFIG_AI_CHAT_HEAP_MIN) {
             ESP_LOGW(TAG, "堆水位过低,提前截断录音");
             *out_reason = 2;
             return got;

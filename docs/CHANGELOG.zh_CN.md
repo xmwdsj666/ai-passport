@@ -6,6 +6,13 @@
 
 ## Unreleased
 
+- 新增 AI Chat 演示页：按住下键说话，云端 ASR 识别，OpenAI 兼容接口的大模型回答，
+  以及流式 WAV TTS 播放。包含应用层 WiFi STA 模块（Kconfig 凭证）、主机可测的
+  纯逻辑核心（`main/chat_core.c`：状态机、会话历史、请求组装、响应解析、WAV 探测、
+  multipart 构造）、带堆水位录音保护与退出握手的 worker 流水线、动态文本使用 CJK
+  字体的 LVGL 对话界面，以及 `AI Voice Chat` 配置组（端点、模型、密钥、录音上限
+  全部可配）。
+
 - 加入厂家为优特利 520mAh 电芯生成的 80 字节 CW2017 profile，并实现内容与更新标志检查、写入后校验、规定的重启时序以及有上限的 SOC 就绪等待。
 
 - 按功能域整理文档并采用双入口：根目录 `AGENTS.md` 变为薄路由（只保留硬约束与任务路由），详细的 AI 开发工作流下沉到 `docs/development/ai-guide.md`，`agent-guide.md` 并入其中。为 `docs/development/` 增加二级分区（`engineering/`、`ci/`、`release/`），把 `plays/` 应用档案与 `experiences/` 移入带专属 README 的 `docs/reference/` 参考区；删除 `docs/software-design/`（空脚手架）；把 `assets/{fonts,images,music}/README` 三个叶子 README 并入 `assets/` README；把 `project-completion` 的六个子文档压平为单文件；并把每个目录统一为单一 README，消除所有 `INDEX` 文件与一处重复经验索引。所有交叉引用与文献链接已更新；未丢弃任何内容。

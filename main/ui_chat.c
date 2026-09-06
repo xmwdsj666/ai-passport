@@ -7,11 +7,8 @@
 #include "bsp_display.h"
 #include "ui_pixel.h"
 
-#include "esp_log.h"
 #include <stdio.h>
 #include <string.h>
-
-static const char *TAG = "ui_chat";
 
 #define CHAT_AREA_X    12
 #define CHAT_AREA_Y    48
