@@ -8,12 +8,12 @@
 
 // 连接并等待拿到 IP。幂等:已连接直接返回 OK。
 // 失败返回错误码,调用方据状态栏提示,不阻塞页面按键。
-esp_err_t wifi_sta_connect(void);
+esp_err_t ai_wifi_sta_connect(void);
 
 // 断开并停掉/释放无线栈(页面退出时调用)。幂等。
-esp_err_t wifi_sta_disconnect(void);
+esp_err_t ai_wifi_sta_disconnect(void);
 
-bool wifi_sta_is_connected(void);
+bool ai_wifi_sta_is_connected(void);
 
 // 已连接时返回点分 IP 字符串(内部静态缓冲);未连接返回 NULL。
-const char *wifi_sta_ip(void);
+const char *ai_wifi_sta_ip(void);

@@ -70,12 +70,12 @@ static void on_ip_event(void *arg, esp_event_base_t base, int32_t id, void *data
     }
 }
 
-bool wifi_sta_is_connected(void)
+bool ai_wifi_sta_is_connected(void)
 {
     return s_connected;
 }
 
-const char *wifi_sta_ip(void)
+const char *ai_wifi_sta_ip(void)
 {
     return s_connected ? s_ip_str : NULL;
 }
@@ -98,7 +98,7 @@ static void stack_destroy(void)
     s_ip_str[0] = '\0';
 }
 
-esp_err_t wifi_sta_connect(void)
+esp_err_t ai_wifi_sta_connect(void)
 {
     if (s_connected) return ESP_OK;
     if (s_ip_str[0] == '\0' && !s_sem) {
@@ -178,7 +178,7 @@ fail:
     return err;
 }
 
-esp_err_t wifi_sta_disconnect(void)
+esp_err_t ai_wifi_sta_disconnect(void)
 {
     if (!s_wifi_inited && !s_netif) return ESP_OK;
     stack_destroy();

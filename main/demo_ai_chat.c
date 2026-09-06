@@ -34,10 +34,10 @@ static void net_task(void *arg)
 {
     (void)arg;
     s_net_busy = true;
-    esp_err_t err = wifi_sta_connect();
+    esp_err_t err = ai_wifi_sta_connect();
     char msg[80];
     if (err == ESP_OK) {
-        snprintf(msg, sizeof(msg), "WiFi 已连接 %s", wifi_sta_ip());
+        snprintf(msg, sizeof(msg), "WiFi 已连接 %s", ai_wifi_sta_ip());
         ui_chat_set_net(msg);
     } else {
         snprintf(msg, sizeof(msg), "WiFi 连接失败(%s),请检查配置",
@@ -102,7 +102,7 @@ void demo_ai_chat_exit(void)
         waited += 50;
     }
     // 3) 释放无线栈,再删屏
-    wifi_sta_disconnect();
+    ai_wifi_sta_disconnect();
     ui_chat_teardown();
     if (s_scr) {
         lv_obj_delete(s_scr);
@@ -115,7 +115,7 @@ void demo_ai_chat_key(bsp_btn_t btn, bsp_btn_ev_t ev)
 {
     if (btn == BSP_BTN_DOWN && ev == BSP_BTN_PRESS) {
         // 按住说话:空闲或错误态都可发起(错误态自动清错重开)
-        if (wifi_sta_is_connected() && !s_net_busy) {
+        if (ai_wifi_sta_is_connected() && !s_net_busy) {
             s_key_in_ppt = true;
             voice_pipeline_start_record();
         } else {
