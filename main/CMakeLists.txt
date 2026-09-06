@@ -3,6 +3,7 @@ idf_component_register(
          "ui_pixel.c"
          "ui_pixel_math.c"
          "chat_core.c"
+         "font_ai_chat_16.c"
          "wifi_sta.c"
          "ai_client.c"
          "voice_pipeline.c"

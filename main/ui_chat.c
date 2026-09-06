@@ -1,8 +1,9 @@
 // main/ui_chat.c —— 对话页界面实现。
-// 动态文本统一用 CJK 字体(simsun 16,约 1000 常用字);生僻字会缺字形,
-// 通过系统提示词约束 LLM 用字范围缓解(见 Kconfig AI_CHAT_SYSTEM_PROMPT)。
+// 动态中文文本统一用自定义 CJK 字体(font_ai_chat_16:GB2312 一级字 3755 字,
+// 覆盖全部界面文案与常见 LLM 回答用字;生成方式见 docs/README.md)。
 #include "ui_chat.h"
 
+#include "font_ai_chat_16.h"
 #include "bsp_battery.h"
 #include "bsp_display.h"
 #include "ui_pixel.h"
@@ -17,13 +18,7 @@
 #define BUBBLE_MAX_W   164
 #define STATUS_PANEL_Y 230
 
-#if LV_FONT_SIMSUN_16_CJK
-#define FONT_CJK &lv_font_simsun_16_cjk
-#else
-// 未启用 CJK 字体时退回 Montserrat(中文会缺字形),构建不被卡死
-#define FONT_CJK &lv_font_montserrat_14
-#warning "Enable CONFIG_LV_FONT_SIMSUN_16_CJK for Chinese text"
-#endif
+#define FONT_CJK &font_ai_chat_16
 
 static lv_obj_t *s_scr;          // 页面屏(归 demo_ai_chat 所有)
 static lv_obj_t *s_scroll;       // 气泡滚动容器

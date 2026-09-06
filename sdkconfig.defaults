@@ -31,8 +31,8 @@ CONFIG_ESP_CONSOLE_SECONDARY_NONE=y
 CONFIG_LV_COLOR_DEPTH_16=y
 CONFIG_LV_FONT_MONTSERRAT_14=y
 CONFIG_LV_FONT_MONTSERRAT_20=y
-# AI Chat 页需要渲染中文动态文本:启用 LVGL 内置 CJK 字体(约 1000 常用字)。
-CONFIG_LV_FONT_SIMSUN_16_CJK=y
+# AI Chat 页的中文动态文本不用 LVGL 内置 CJK 字体(其覆盖表偏繁体,缺常用简体字形),
+# 改用自生成子集 main/font_ai_chat_16.c(GB2312 一级字 3755 字),见 docs/README.md。
 # LVGL 内置 malloc 池大小(KB)。它是独立静态区、不与系统堆共享,配大了会白白占用 RAM。
 # 本 demo UI 简单,24KB 足够;若自建复杂界面出现绘制卡死/看门狗,调大此值。
 CONFIG_LV_MEM_SIZE_KILOBYTES=24
