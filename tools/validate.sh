@@ -32,6 +32,14 @@ run_static_checks() {
         tests/test_chat_core.c main/chat_core.c \
         -o "${test_dir}/test_chat_core"
     "${test_dir}/test_chat_core"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
+        tests/test_lunar.c main/lunar.c \
+        -o "${test_dir}/test_lunar"
+    "${test_dir}/test_lunar"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
+        tests/test_qweather.c main/qweather_parse.c \
+        -o "${test_dir}/test_qweather"
+    "${test_dir}/test_qweather"
     python3 tests/test_verify_firmware.py
     rm -rf "${test_dir}"
     echo "Host tests: PASS"

@@ -2,7 +2,7 @@
   <strong>English</strong> · <a href="README.zh_CN.md">简体中文</a>
 </p>
 
-# Pocket AI Chat (AI 随身话友)
+# Pocket AI Chat
 
 Hold a button, say anything, and the AI Passport answers **out loud** — your conversation appears
 as chat bubbles on the screen. It turns the device into a pocket companion you can chat with on the
@@ -57,7 +57,7 @@ Provider cheat-sheet (all OpenAI-compatible):
 | Provider | BASE_URL | LLM | ASR | TTS |
 | --- | --- | --- | --- | --- |
 | OpenAI | `https://api.openai.com/v1` | `gpt-4o-mini` | `whisper-1` | `tts-1` |
-| 智谱 GLM | `https://open.bigmodel.cn/api/paas/v4` | `glm-4-flash` | `glm-asr` | `cogtts` |
+| Zhipu GLM | `https://open.bigmodel.cn/api/paas/v4` | `glm-4-flash` | `glm-asr` | `cogtts` |
 | SiliconFlow | `https://api.siliconflow.cn/v1` | `Qwen/Qwen2.5-7B-Instruct` | `FunAudioLLM/SenseVoiceSmall` | `fishaudio/fish-speech-1.5` |
 
 TTS must support `response_format: "wav"`; MP3 decoding is out of scope on this device.

@@ -49,3 +49,37 @@ config AI_CHAT_HEAP_MIN
     default 61440
 
 endmenu
+
+menu "Weather & Time"
+
+config QWEATHER_API_KEY
+    string "QWeather API Key (console.qweather.com)"
+    default ""
+
+config QWEATHER_HOST
+    string "QWeather API Host (your dedicated host from console settings)"
+    default "devapi.qweather.com"
+
+config QWEATHER_LOCATION_ID
+    string "QWeather Location ID (e.g. 101010100 Beijing, 101020100 Shanghai)"
+    default "101010100"
+
+config QWEATHER_LOCATION_NAME
+    string "City label shown on screen (Chinese, short)"
+    default "北京"
+
+config QWEATHER_REFRESH_MIN
+    int "Weather refresh interval (minutes)"
+    range 10 720
+    default 30
+
+config TIME_SYNC_NTP_SERVER
+    string "NTP server"
+    default "ntp.aliyun.com"
+
+config TIME_SYNC_TZ_OFFSET
+    int "Timezone UTC offset (hours, east positive)"
+    range -12 12
+    default 8
+
+endmenu
