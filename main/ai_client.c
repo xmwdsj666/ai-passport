@@ -124,21 +124,21 @@ esp_err_t ai_client_asr(const uint8_t *pcm, size_t pcm_bytes, uint32_t sample_ra
         ESP_LOGE(TAG, "ASR 连接失败");
         goto done;
     }
-    esp_http_client_fetch_headers(client);
-
+    // 先写完全部请求体,再等响应头(顺序反了会与服务器互等)
     if (esp_http_client_write(client, head, (int)head_len) < 0 ||
-        esp_http_client_write(client, wav, sizeof(wav)) < 0) {
+        esp_http_client_write(client, (const char *)wav, sizeof(wav)) < 0) {
         ESP_LOGE(TAG, "ASR 上传写失败");
         goto done;
     }
     for (size_t off = 0; off < pcm_bytes; off += IO_CHUNK) {
         size_t n = pcm_bytes - off < IO_CHUNK ? pcm_bytes - off : IO_CHUNK;
-        if (esp_http_client_write(client, pcm + off, (int)n) < 0) {
+        if (esp_http_client_write(client, (const char *)pcm + off, (int)n) < 0) {
             ESP_LOGE(TAG, "ASR 音频写失败@%u", (unsigned)off);
             goto done;
         }
     }
     if (esp_http_client_write(client, tail, (int)tail_len) < 0) goto done;
+    esp_http_client_fetch_headers(client);
 
     {
         char *resp = NULL;
@@ -191,11 +191,11 @@ esp_err_t ai_client_chat(char *out, size_t cap)
         ESP_LOGE(TAG, "chat 连接失败");
         goto done;
     }
-    esp_http_client_fetch_headers(client);
     if (esp_http_client_write(client, body, (int)strlen(body)) < 0) {
         ESP_LOGE(TAG, "chat 请求写失败");
         goto done;
     }
+    esp_http_client_fetch_headers(client);
 
     {
         char *resp = NULL;
@@ -255,6 +255,10 @@ esp_err_t ai_client_tts_stream(const char *text,
     err = ESP_FAIL;
     if (esp_http_client_open(client, (int)strlen(body)) != ESP_OK) {
         ESP_LOGE(TAG, "tts 连接失败");
+        goto done;
+    }
+    if (esp_http_client_write(client, body, (int)strlen(body)) < 0) {
+        ESP_LOGE(TAG, "tts 请求写失败");
         goto done;
     }
     esp_http_client_fetch_headers(client);

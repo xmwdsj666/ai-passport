@@ -144,12 +144,7 @@ void ui_chat_build(lv_obj_t *scr)
     s_scr = scr;
     s_msg_count = 0;
 
-    s_batt = lv_label_create(scr);
-    lv_obj_set_style_text_font(s_batt, &lv_font_montserrat_14, 0);
-    lv_obj_set_style_text_color(s_batt, lv_color_hex(UI_INK), 0);
-    lv_obj_set_pos(s_batt, 10, 6);
-    battery_refresh();
-
+    // 电池:标题牌占左上、云朵装饰占右上(硬件指南),故放状态面板右上角
     s_scroll = lv_obj_create(scr);
     lv_obj_set_pos(s_scroll, CHAT_AREA_X, CHAT_AREA_Y);
     lv_obj_set_size(s_scroll, CHAT_AREA_W, CHAT_AREA_H);
@@ -166,8 +161,14 @@ void ui_chat_build(lv_obj_t *scr)
     lv_obj_set_style_text_font(s_status, FONT_CJK, 0);
     lv_obj_set_style_text_color(s_status, lv_color_hex(UI_INK), 0);
     lv_label_set_long_mode(s_status, LV_LABEL_LONG_WRAP);
-    lv_obj_set_width(s_status, CHAT_AREA_W - 16);
+    lv_obj_set_width(s_status, 150);              // 右侧留给电池
     lv_obj_align(s_status, LV_ALIGN_TOP_LEFT, 6, 4);
+
+    s_batt = lv_label_create(panel);
+    lv_obj_set_style_text_font(s_batt, &lv_font_montserrat_14, 0);
+    lv_obj_set_style_text_color(s_batt, lv_color_hex(UI_INK), 0);
+    lv_obj_align(s_batt, LV_ALIGN_TOP_RIGHT, -6, 4);
+    battery_refresh();
 
     s_net = lv_label_create(panel);
     lv_obj_set_style_text_font(s_net, FONT_CJK, 0);

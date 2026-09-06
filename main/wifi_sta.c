@@ -28,6 +28,7 @@ static esp_event_handler_instance_t s_wifi_evt;
 static esp_event_handler_instance_t s_ip_evt;
 static bool s_wifi_inited;
 static bool s_wifi_started;
+static bool s_handlers_registered;            // 事件循环随应用存活,注册一次即可
 static SemaphoreHandle_t s_sem;                 // 惰性创建,应用生命周期持有
 static volatile wifi_sta_evt_t s_result;
 static volatile int s_retry;
@@ -118,12 +119,15 @@ esp_err_t wifi_sta_connect(void)
         err = esp_wifi_init(&cfg);
         if (err != ESP_OK) goto fail;
         s_wifi_inited = true;
+    }
+    if (!s_handlers_registered) {                // 页面反复进出也不能重复注册
         err = esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID,
                                                   on_wifi_event, NULL, &s_wifi_evt);
         if (err != ESP_OK) goto fail;
         err = esp_event_handler_instance_register(IP_EVENT, IP_EVENT_STA_GOT_IP,
                                                   on_ip_event, NULL, &s_ip_evt);
         if (err != ESP_OK) goto fail;
+        s_handlers_registered = true;
     }
 
     err = esp_wifi_set_storage(WIFI_STORAGE_RAM);

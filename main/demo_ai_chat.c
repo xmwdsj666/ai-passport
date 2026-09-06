@@ -18,6 +18,7 @@
 #include "sdkconfig.h"
 #include "ui_pixel.h"
 #include "lvgl.h"
+#include <stdio.h>
 
 static const char *TAG = "demo_ai_chat";
 
@@ -34,10 +35,11 @@ static void net_task(void *arg)
     (void)arg;
     s_net_busy = true;
     esp_err_t err = wifi_sta_connect();
+    char msg[80];
     if (err == ESP_OK) {
-        ui_chat_set_net(wifi_sta_ip());
+        snprintf(msg, sizeof(msg), "WiFi 已连接 %s", wifi_sta_ip());
+        ui_chat_set_net(msg);
     } else {
-        char msg[64];
         snprintf(msg, sizeof(msg), "WiFi 连接失败(%s),请检查配置",
                  esp_err_to_name(err));
         ui_chat_set_net(msg);
