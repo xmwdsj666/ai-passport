@@ -1,0 +1,51 @@
+# main/Kconfig.projbuild —— AI 语音对话应用配置(menuconfig: AI Voice Chat)。
+# API Key 只进本机 sdkconfig,严禁提交真实凭证到仓库。
+menu "AI Voice Chat"
+
+config AI_CHAT_WIFI_SSID
+    string "WiFi SSID (2.4GHz)"
+    default ""
+
+config AI_CHAT_WIFI_PASSWORD
+    string "WiFi password"
+    default ""
+
+config AI_CHAT_BASE_URL
+    string "AI service base URL (OpenAI compatible, ends before /chat/completions)"
+    default "https://api.openai.com/v1"
+
+config AI_CHAT_API_KEY
+    string "AI API key (Bearer)"
+    default ""
+
+config AI_CHAT_LLM_MODEL
+    string "Chat model"
+    default "gpt-4o-mini"
+
+config AI_CHAT_ASR_MODEL
+    string "ASR model (POST base/audio/transcriptions)"
+    default "whisper-1"
+
+config AI_CHAT_TTS_MODEL
+    string "TTS model (POST base/audio/speech)"
+    default "tts-1"
+
+config AI_CHAT_TTS_VOICE
+    string "TTS voice"
+    default "alloy"
+
+config AI_CHAT_SYSTEM_PROMPT
+    string "System prompt"
+    default "你是 AI Passport 语音助手。请只用常用汉字、字母、数字和常见标点回答，简短口语化，一次不超过60个字。"
+
+config AI_CHAT_REC_MAX_SEC
+    int "Max recording seconds (buffer = seconds * 32KB, no PSRAM!)"
+    range 1 10
+    default 4
+
+config AI_CHAT_HEAP_MIN
+    int "Min free heap during recording (bytes, below this recording is cut)"
+    range 20480 262144
+    default 61440
+
+endmenu

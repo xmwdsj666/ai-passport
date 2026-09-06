@@ -26,6 +26,7 @@ static const demo_entry_t DEMOS[] = {
     { "Wi-Fi",   demo_wifi_enter,    demo_wifi_exit,    demo_wifi_key    },
     { "BLE",     demo_ble_enter,     demo_ble_exit,     demo_ble_key     },
     { "Low Power", demo_low_power_enter, demo_low_power_exit, demo_low_power_key },
+    { "AI Chat",   demo_ai_chat_enter,   demo_ai_chat_exit,   demo_ai_chat_key   },
 };
 #define DEMO_COUNT (sizeof(DEMOS) / sizeof(DEMOS[0]))
 
