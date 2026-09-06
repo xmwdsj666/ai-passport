@@ -17,7 +17,8 @@ idf_component_register(
          "demo_ble.c"
          "demo_low_power.c"
          "demo_ai_chat.c"
+         "serial_screenshot.c"
     INCLUDE_DIRS "."
     REQUIRES bsp bt esp_event esp_hw_support esp_netif esp_system esp_timer esp_wifi nvs_flash
-             esp_http_client esp-tls
+             esp_http_client esp-tls esp_driver_usb_serial_jtag
 )

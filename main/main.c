@@ -10,6 +10,7 @@
 #include "bsp_audio.h"
 #include "bsp_battery.h"
 #include "bsp_pins.h"      // 错误日志里要打印 BSP_LCD_* 引脚号
+#include "serial_screenshot.h"
 #include "demo.h"
 #include "ui_pixel.h"
 #include "lvgl.h"
@@ -135,6 +136,8 @@ void app_main(void) {
     s_ok[7] = true;                                    // AI Chat:网络/密钥问题页内提示,不阻断入口
 
     if (bsp_lvgl_lock(1000)) { enter_menu(); bsp_lvgl_unlock(); }
+
+    serial_screenshot_start();   // 发布助手串口截图协议(FAP_SCREENSHOT_V1,纯观测)
 
     ESP_LOGI(TAG, "就绪:Display=%d Button=%d Audio=%d Battery=%d",
              s_ok[0], s_ok[1], s_ok[2], s_ok[3]);
